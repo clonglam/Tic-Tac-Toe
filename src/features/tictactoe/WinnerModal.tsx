@@ -19,7 +19,7 @@ const Wrapper = styled.div<WrapperProps>`
   position: absolute;
   height: 100%;
   width: 640px;
-  background: #f4f1de;
+  background: var(--background-color);
   display: flex;
   flex-direction: column;
   justify-content: center;

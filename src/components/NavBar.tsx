@@ -7,16 +7,11 @@ const StyledNavbar = styled.div`
   height: 54px;
   width: 100%;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   gap: 0 2rem;
 `
 
 const StyledNav = styled.nav`
-  & a {
-    color: #3d405b;
-  }
-
   & a :hover {
     text-decoration: underline;
   }

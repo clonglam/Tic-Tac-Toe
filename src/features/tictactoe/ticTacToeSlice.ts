@@ -4,12 +4,19 @@ import type { RootState } from "../../app/store"
 
 export type LineType = "horizontal" | "vertical" | "diagonal"
 
+export enum GameMode {
+  Easy,
+  Medium,
+  Impossible,
+  PVP,
+}
 interface GameState {
   board: number[]
   currentPlayer: number
   winner: number | null
   lineType: LineType | null
   linePosition: number | null
+  gameMode: GameMode
 }
 // Define the initial state using that type
 const initialState: GameState = {
@@ -18,6 +25,7 @@ const initialState: GameState = {
   winner: null,
   lineType: null,
   linePosition: null,
+  gameMode: GameMode["Impossible"],
 }
 
 const winCombination = [
@@ -45,6 +53,10 @@ export const ticTacToeSlice = createSlice({
       state.board = initialState.board
       state.currentPlayer = initialState.currentPlayer
       state.winner = initialState.winner
+    },
+
+    setGameMode: (state, { payload }: PayloadAction<GameMode>) => {
+      state.gameMode = payload
     },
 
     setWinner: (state, { payload }: PayloadAction<number>) => {
@@ -85,12 +97,19 @@ export const ticTacToeSlice = createSlice({
   },
 })
 
-export const { placeMark, nextPlayer, checkWinner, newGame, setWinner } =
-  ticTacToeSlice.actions
+export const {
+  placeMark,
+  nextPlayer,
+  checkWinner,
+  newGame,
+  setWinner,
+  setGameMode,
+} = ticTacToeSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const slectCurrentPlayer = (state: RootState) =>
   state.ticTacToe.currentPlayer
+export const selectGameMode = (state: RootState) => state.ticTacToe.gameMode
 export const selectWinner = (state: RootState) => state.ticTacToe.winner
 export const selectBoard = (state: RootState) => state.ticTacToe.board
 export const selectLineType = (state: RootState) => state.ticTacToe.lineType

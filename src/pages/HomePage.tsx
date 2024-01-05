@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import "../App.scss"
 import GameBoard from "../features/tictactoe/GameBoard"
 import PlayerTurn from "../features/tictactoe/PlayerTurn"
 import RestartButton from "../features/tictactoe/RestartButton"
@@ -20,7 +19,7 @@ function HomePage() {
       <h1 className="branding">
         <span>Tic</span>-<span>Tac</span>-<span>Toe</span>
       </h1>
-
+      {/* <ModeSelector /> */}
       <div>
         <SocreBoard />
         <PlayerTurn />

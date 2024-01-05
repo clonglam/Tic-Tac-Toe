@@ -11,6 +11,37 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --text-color: #3d405b;
+  --text-color-lighter: #8a8a8a;
+  --text-color-darker: #2e2e2e;
+  --circle-color: #81b29a;
+  --cross-color: #e07a5f;
+  --background-color-darker: #f2cc8f;
+  --background-color: #f4f1de;
+}
+
+#root {
+  width: 100%;
+}
+
+.branding {
+  color: #3d405b;
+  :nth-of-type(1) {
+    color: var(--circle-color);
+  }
+  :nth-of-type(2) {
+    color: var(--cross-color);
+  }
+  :nth-of-type(3) {
+    color: var(--text-color);
+  }
+}
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
 }
 
 a {
@@ -20,7 +51,7 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #2e2e2e;
+  color: var(--text-color-darker);
   text-decoration: underline;
 }
 

@@ -43,7 +43,7 @@ const Row = styled.tr`
   }
 `
 const Cell = styled.td`
-  border: 6px solid #f2cc8f;
+  border: 6px solid var(--background-color-darker);
   height: 125px;
   width: 125px;
   text-align: center;

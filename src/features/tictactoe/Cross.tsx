@@ -9,7 +9,7 @@ const crossAnimation = keyframes`
 `
 const StyledCross = styled.svg`
   fill: none;
-  stroke: #e07a5f;
+  stroke: var(--cross-color);
   stroke-width: 8px;
   stroke-linecap: round;
   stroke-dasharray: 1000;

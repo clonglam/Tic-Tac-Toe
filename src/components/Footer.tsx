@@ -9,9 +9,9 @@ const StyledFooter = styled.footer`
 `
 const FooterContent = styled.p`
   text-align: center;
-  color: "#aeaeae";
+  color: var(--text-color-lighter);
   & a {
-    color: "#000";
+    color: var(--text-color);
   }
   & a :hover {
     text-decoration: underline;

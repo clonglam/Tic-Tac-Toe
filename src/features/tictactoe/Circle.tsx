@@ -9,7 +9,7 @@ const circleAnimation = keyframes`
 `
 const StyledCircleSVG = styled.svg`
   fill: none;
-  stroke: #81b29a;
+  stroke: var(--circle-color);
   stroke-width: 7px;
   stroke-linecap: round;
   stroke-dasharray: 1000;

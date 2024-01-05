@@ -1,0 +1,64 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #3d405b;
+  background-color: #f4f1de;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #3d405b;
+  cursor: pointer;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #2e2e2e;
+  text-decoration: underline;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  // a:hover {
+  //   color: #747bff;
+  // }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+@keyframes drawHorizontalLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%; /* Or height: 100% for vertical lines */
+  }
+}
+
+@keyframes drawVerticalLine {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%; /* Or height: 100% for vertical lines */
+  }
+}

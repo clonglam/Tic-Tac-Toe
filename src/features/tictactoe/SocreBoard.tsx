@@ -44,7 +44,7 @@ function SocreBoard() {
 
   const onClickHandler = (mark: Marks) => {
     if (
-      gameMode == GameMode["PVP"] ||
+      gameMode === GameMode["PVP"] ||
       mark === currentHumanMark ||
       (!board.every((cell) => cell === null) && result === null)
     )

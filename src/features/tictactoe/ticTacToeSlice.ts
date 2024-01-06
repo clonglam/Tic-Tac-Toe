@@ -145,8 +145,11 @@ export const ticTacToeSlice = createSlice({
           move = pickRandomEmptySpace(state.board)!
           break
         case GameMode["IMPOSSIBLE"]:
-          move = pickRandomEmptySpace(state.board)!
-          // move = findBestMove(state.board)!
+          if (state.board.every((cell) => cell === null)) {
+            move = 0
+            break
+          }
+          move = findBestMove(state.board, state.humanMark === "X" ? "O" : "X")!
           break
       }
 
@@ -226,6 +229,7 @@ function checkForWinner(board: Cell[]): GameResult {
   if (!board.includes(null)) return "TIE" // 0 indicates a draw
   return null
 }
+
 function pickRandomEmptySpace(board: Cell[]) {
   const emptyIndices = _.compact(
     board.map((cell, index) => (cell === null ? index : null))
@@ -234,53 +238,58 @@ function pickRandomEmptySpace(board: Cell[]) {
   return _.sample(emptyIndices)
 }
 
-// function minimax(board: number[], depth: number, isMaximizingPlayer: boolean) {
-//   const winner = checkForWinner(board)
+function minimax(
+  board: Cell[],
+  depth: number,
+  isMaximizingPlayer: boolean,
+  aiPlayerMark: Marks
+) {
+  const result = checkForWinner(board)
 
-//   if (winner !== null) {
-//     return winner?.winner === -1 ? -10 : winner?.winner === 1 ? 10 : 0
-//   }
+  if (result !== null) {
+    return result === "TIE" ? 0 : result.winner === aiPlayerMark ? 10 : -10
+  }
 
-//   if (isMaximizingPlayer) {
-//     let bestScore = -Infinity
-//     for (let i = 0; i < board.length; i++) {
-//       if (board[i] === 0) {
-//         board[i] = 1 // AI's move
-//         const score = minimax(board, depth + 1, false)
-//         board[i] = 0
-//         bestScore = Math.max(score, bestScore)
-//       }
-//     }
-//     return bestScore
-//   } else {
-//     let bestScore = Infinity
-//     for (let i = 0; i < board.length; i++) {
-//       if (board[i] === 0) {
-//         board[i] = -1 // Human's move
-//         const score = minimax(board, depth + 1, true)
-//         board[i] = 0
-//         bestScore = Math.min(score, bestScore)
-//       }
-//     }
-//     return bestScore
-//   }
-// }
+  if (isMaximizingPlayer) {
+    let bestScore = -Infinity
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === null) {
+        board[i] = aiPlayerMark // AI's move
+        const score = minimax(board, depth + 1, false, aiPlayerMark)
+        board[i] = null
+        bestScore = Math.max(score, bestScore)
+      }
+    }
+    return bestScore
+  } else {
+    let bestScore = Infinity
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === null) {
+        board[i] = aiPlayerMark === "X" ? "O" : "X" // Human's move
+        const score = minimax(board, depth + 1, true, aiPlayerMark)
+        board[i] = null
+        bestScore = Math.min(score, bestScore)
+      }
+    }
+    return bestScore
+  }
+}
 
-// function findBestMove(board: number[]) {
-//   let bestScore = -Infinity
-//   let move
-//   for (let i = 0; i < board.length; i++) {
-//     if (board[i] === 0) {
-//       board[i] = 1 // AI's move
-//       const score = minimax(board, 0, false)
-//       board[i] = 0 // Reset it
-//       if (score > bestScore) {
-//         bestScore = score
-//         move = i
-//       }
-//     }
-//   }
-//   return move
-// }
+function findBestMove(board: Cell[], aiPlayerMark: Marks) {
+  let bestScore = -Infinity
+  let move
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] === null) {
+      board[i] = aiPlayerMark // AI's move
+      const score = minimax(board, 0, false, aiPlayerMark)
+      board[i] = null // Reset it
+      if (score > bestScore) {
+        bestScore = score
+        move = i
+      }
+    }
+  }
+  return move
+}
 
 export default ticTacToeSlice.reducer

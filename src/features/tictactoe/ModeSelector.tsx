@@ -49,7 +49,6 @@ function ModeSelector() {
 
   return (
     <Wrapper>
-      {/* <label htmlFor="gameModeSelect">Choose a game mode:</label> */}
       <Select
         id="gameModeSelect"
         value={currentameMode}

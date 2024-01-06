@@ -12,7 +12,7 @@ function PlayerTurn() {
         <Cross width={12} height={12} />
       ) : (
         <Circle width={12} height={12} />
-      )}{" "}
+      )}
       Turn
     </p>
   )

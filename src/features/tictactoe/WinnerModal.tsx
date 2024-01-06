@@ -2,10 +2,10 @@ import styled, { keyframes } from "styled-components"
 import { useAppSelector } from "../../app/hooks"
 import Circle from "./Circle"
 import Cross from "./Cross"
-import { selectWinner } from "./ticTacToeSlice"
+import { selectResult } from "./ticTacToeSlice"
 
 interface WrapperProps {
-  show: boolean
+  hidden: boolean
 }
 const fadeIn = keyframes`
     from{
@@ -24,7 +24,7 @@ const Wrapper = styled.div<WrapperProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  display: ${(p) => (p.show ? "flex" : "none")};
+  display: ${(p) => (p.hidden ? "none" : "flex")};
   animation: ${fadeIn} 0.3s linear 500ms;
   animation-fill-mode: both;
 `
@@ -36,24 +36,23 @@ const WinnerText = styled.h1`
   padding: 0%;
 `
 function WinnerModal() {
-  const winner = useAppSelector(selectWinner)
+  const result = useAppSelector(selectResult)
 
   return (
-    // <Wrapper show={false}>
-    <Wrapper show={winner !== null}>
+    <Wrapper hidden={result === null}>
       <div>
-        {winner === 0 ? (
-          <>
+        {result === "TIE" ? (
+          <div>
             <Cross />
             <Circle />
-          </>
-        ) : winner === -1 ? (
+          </div>
+        ) : result?.winner === "X" ? (
           <Cross />
         ) : (
           <Circle />
         )}
       </div>
-      <WinnerText>Winner</WinnerText>
+      <WinnerText>{result === "TIE" ? "TIE" : "WINNER"}</WinnerText>
     </Wrapper>
   )
 }

@@ -50,8 +50,8 @@ const Line = styled.div<Props>`
   }}
 `
 
-function WinningLine({ lineType, linePosition }: Props) {
-  return <Line linePosition={linePosition} lineType={lineType} />
+function WinningLine(props: Props) {
+  return <Line {...props} />
 }
 
 export default WinningLine

@@ -1,19 +1,20 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
+import styled, { keyframes } from "styled-components"
 import { useAppSelector } from "../../app/hooks"
+import Cell from "./Cell"
+import WinningLine from "./WinningLine"
 import {
+  GameMode,
+  PlayerType,
+  aiMove,
   checkWinner,
   nextPlayer,
-  placeMark,
   selectBoard,
-  selectLinePosition,
-  selectLineType,
-  selectWinner,
+  selectGameMode,
+  selectResult,
+  slectCurrentPlayer,
 } from "./ticTacToeSlice"
-import Cross from "./Cross"
-import Circle from "./Circle"
-import styled, { keyframes } from "styled-components"
-import WinningLine from "./WinningLine"
 
 const clipMask = keyframes`
      from {
@@ -42,36 +43,27 @@ const Row = styled.tr`
     border-right: 0;
   }
 `
-const Cell = styled.td`
-  border: 6px solid var(--background-color-darker);
-  height: 125px;
-  width: 125px;
-  text-align: center;
-  vertical-align: middle;
-  padding: 15px;
-  cursor: pointer;
-  padding: 0.3em 0.3em;
-`
 
 function GameBoard() {
   const dispatch = useDispatch()
   const board = useAppSelector(selectBoard)
-  const winner = useAppSelector(selectWinner)
-  const lineType = useAppSelector(selectLineType)
-  const linePosition = useAppSelector(selectLinePosition)
+  const result = useAppSelector(selectResult)
 
-  const onClickHandler = (index: number) => {
-    if (board[index] !== 0) {
-      return
-    }
-
-    dispatch(placeMark(index))
-    dispatch(nextPlayer())
-  }
+  const currentPlayer = useAppSelector(slectCurrentPlayer)
+  const gameMode = useAppSelector(selectGameMode)
 
   useEffect(() => {
-    dispatch(checkWinner())
-  }, [board, dispatch])
+    if (
+      gameMode != GameMode["PVP"] &&
+      currentPlayer.playerType === PlayerType["AI"] &&
+      result === null
+    ) {
+      console.log("AI is move")
+      dispatch(aiMove())
+      dispatch(checkWinner())
+      dispatch(nextPlayer())
+    }
+  }, [currentPlayer.playerType, gameMode, dispatch, result])
 
   return (
     <Board>
@@ -81,22 +73,22 @@ function GameBoard() {
             {[...Array(3)].map((_, colIndex) => {
               const cellIndex = rowIndex * 3 + colIndex
               return (
-                <Cell onClick={() => onClickHandler(cellIndex)} key={cellIndex}>
-                  {board[cellIndex] === 0 ? (
-                    " "
-                  ) : board[cellIndex] === -1 ? (
-                    <Cross />
-                  ) : (
-                    <Circle />
-                  )}
-                </Cell>
+                <Cell
+                  key={cellIndex}
+                  value={board[cellIndex]}
+                  cellIndex={cellIndex}
+                />
               )
             })}
           </Row>
         ))}
       </tbody>
-      {winner && lineType && linePosition && (
-        <WinningLine lineType={lineType} linePosition={linePosition} />
+
+      {result != null && result != "TIE" && (
+        <WinningLine
+          lineType={result.lineType}
+          linePosition={result.linePosition}
+        />
       )}
     </Board>
   )

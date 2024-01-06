@@ -2,13 +2,12 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledNavbar = styled.div`
-  position: fixed;
-  top: 0;
   height: 54px;
   width: 100%;
   display: flex;
   align-items: center;
   gap: 0 2rem;
+  background: var(--background-color);
 `
 
 const StyledNav = styled.nav`

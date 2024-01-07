@@ -1,5 +1,5 @@
 # Tic Tac Toe - Arcade Project
-
+![screenshot](https://github.com/clonglam/Tic-Tac-Toe/blob/main/public/screenshot.png)
 ## Overview
 
 This project is part of the [Arcade Projects series](https://hugo-coding.com/projects?category=game). It's a classic Tic Tac Toe game built using React.js (Vite), Redux, and styled-components. The game features multiple modes, including Player vs. Player (PvP) and different levels of AI difficulty.

@@ -9,6 +9,18 @@ Try out the game: [Play Tic Tac Toe](https://arcade-tic-tac-toe.vercel.app/)
 
 ![screenshot](https://github.com/clonglam/Tic-Tac-Toe/blob/main/public/screenshot.png)
 
+## Algorithm
+
+The core of the Medium and Impossible game modes is the Minimax algorithm. This is a recursive algorithm used in decision-making and game theory to determine the optimal move for a player, assuming the opponent also plays optimally.
+
+### Minimax Algorithm
+
+- **Functionality**: At each step, the algorithm simulates all possible moves, evaluates the resulting board state, and selects the move that maximizes the AI's chances of winning.
+- **Optimizations**: To enhance performance, the algorithm implements several optimizations, especially in the Impossible mode.
+- **Space Complexity in Impossible Mode**: O(n!), which translates to 9! (362880) computations if the AI plays as "X". To address potential performance concerns:
+  - The AI's first move is pre-determined to the center square, reducing complexity to 8! (40320) and improving response time.
+
+
 ## Game Modes
 
 ### Easy Mode
@@ -23,16 +35,6 @@ Try out the game: [Play Tic Tac Toe](https://arcade-tic-tac-toe.vercel.app/)
   - **Medium Mode**: Searches 2 levels deep.
   - **Impossible Mode**: Examines all possible game outcomes.
 
-## Algorithm
-
-The core of the Medium and Impossible game modes is the Minimax algorithm. This is a recursive algorithm used in decision-making and game theory to determine the optimal move for a player, assuming the opponent also plays optimally.
-
-### Minimax Algorithm
-
-- **Functionality**: At each step, the algorithm simulates all possible moves, evaluates the resulting board state, and selects the move that maximizes the AI's chances of winning.
-- **Optimizations**: To enhance performance, the algorithm implements several optimizations, especially in the Impossible mode.
-- **Space Complexity in Impossible Mode**: O(n!), which translates to 9! (362880) computations if the AI plays as "X". To address potential performance concerns:
-  - The AI's first move is pre-determined to the center square, reducing complexity to 8! (40320) and improving response time.
 
 ## Technologies Used
 

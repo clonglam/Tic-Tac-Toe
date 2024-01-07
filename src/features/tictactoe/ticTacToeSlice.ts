@@ -18,12 +18,13 @@ export enum GameMode {
   PVP = "3",
 }
 
+type Cell = Marks | null
+
 export type Marks = "X" | "O"
 
 export type Player = {
   playerType: PlayerType
   score: number
-  // mark: Marks
 }
 
 export type PlayerState = { [key in Marks]: Player }
@@ -32,17 +33,14 @@ const playerState: PlayerState = {
   O: {
     score: 0,
     playerType: PlayerType["AI"],
-    // mark: "O",
   },
   X: {
     playerType: PlayerType["HUMAN"],
     score: 0,
-    // mark: "X",
   },
 }
 
-type Cell = Marks | null
-type GameResult =
+export type GameResult =
   | { winner: Marks; lineType: LineType; linePosition: number }
   | "TIE"
   | null

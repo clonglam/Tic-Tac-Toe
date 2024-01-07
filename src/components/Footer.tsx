@@ -22,7 +22,10 @@ function Footer() {
   return (
     <StyledFooter>
       <FooterContent>
-        © All rights reserved. Made with ❤ by <a href="">Arcade Project</a>
+        © All rights reserved. Made with ❤ by{" "}
+        <a href="https://hugo-coding.com/projects?category=game">
+          Arcade Project
+        </a>
       </FooterContent>
     </StyledFooter>
   )

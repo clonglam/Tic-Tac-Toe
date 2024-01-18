@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useAppDispatch } from "../../app/hooks"
 import { newGame } from "./ticTacToeSlice"
+import { initialHistory } from "../history/historySlice"
 
 const StyledRestartButton = styled.button`
   padding: 1em 4em;
@@ -21,6 +22,7 @@ function RestartButton() {
 
   const onClickHandler = () => {
     dispatch(newGame())
+    dispatch(initialHistory())
   }
 
   return (

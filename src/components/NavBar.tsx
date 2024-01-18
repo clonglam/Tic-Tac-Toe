@@ -7,6 +7,8 @@ const StyledNavbar = styled.div`
   display: flex;
   align-items: center;
   gap: 0 2rem;
+  position: fixed;
+  top: 0;
   background: var(--background-color);
 `
 

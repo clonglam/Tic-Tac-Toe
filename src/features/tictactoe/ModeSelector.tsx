@@ -1,11 +1,15 @@
 import styled from "styled-components"
 import { GameMode, selectGameMode, setGameMode } from "./ticTacToeSlice"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { initialHistory } from "../history/historySlice"
 
 const Wrapper = styled.div`
-  padding: 0.5em 1em;
+  padding: 0.5em 0;
   position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
   margin-bottom: 1rem;
 `
 const Select = styled.select`
@@ -18,6 +22,11 @@ const Select = styled.select`
   &:focus {
     border: none;
   }
+`
+const SelectionLabel = styled.label`
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: var(--text-color);
 `
 
 function ModeSelector() {
@@ -45,10 +54,12 @@ function ModeSelector() {
 
   const handleModeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setGameMode(event.target.value as GameMode))
+    dispatch(initialHistory())
   }
 
   return (
     <Wrapper>
+      <SelectionLabel>Game Mode:</SelectionLabel>
       <Select
         id="gameModeSelect"
         value={currentameMode}

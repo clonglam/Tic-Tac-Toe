@@ -1,4 +1,5 @@
 # Tic Tac Toe - Arcade Project
+
 ## Overview
 
 This project is part of the [Arcade Projects series](https://hugo-coding.com/projects?category=game). It's a classic Tic Tac Toe game built using React.js (Vite), Redux, and styled-components. The game features multiple modes, including Player vs. Player (PvP) and different levels of AI difficulty.
@@ -18,8 +19,7 @@ The core of the Medium and Impossible game modes is the Minimax algorithm. This 
 - **Functionality**: At each step, the algorithm simulates all possible moves, evaluates the resulting board state, and selects the move that maximizes the AI's chances of winning.
 - **Optimizations**: To enhance performance, the algorithm implements several optimizations, especially in the Impossible mode.
 - **Space Complexity in Impossible Mode**: O(n!), which translates to 9! (362880) computations if the AI plays as "X". To address potential performance concerns:
-  - The AI's first move is pre-determined to the center square, reducing complexity to 8! (40320) and improving response time.
-
+  - The AI's first move is pre-determined to the corner square, reducing complexity to 8! (40320) and improving response time.
 
 ## Game Modes
 
@@ -34,7 +34,6 @@ The core of the Medium and Impossible game modes is the Minimax algorithm. This 
 - **Depth of Search**:
   - **Medium Mode**: Searches 2 levels deep.
   - **Impossible Mode**: Examines all possible game outcomes.
-
 
 ## Technologies Used
 

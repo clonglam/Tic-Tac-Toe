@@ -58,7 +58,6 @@ function GameBoard() {
       currentPlayer.playerType === PlayerType["AI"] &&
       result === null
     ) {
-      console.log("AI is move")
       dispatch(aiMove())
       dispatch(checkWinner())
       dispatch(nextPlayer())

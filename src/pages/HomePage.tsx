@@ -6,35 +6,60 @@ import RestartButton from "../features/tictactoe/RestartButton"
 import SocreBoard from "../features/tictactoe/SocreBoard"
 import WinnerModal from "../features/tictactoe/WinnerModal"
 import ModeSelector from "../features/tictactoe/ModeSelector"
+import HistoryList from "../features/history/HistoryList"
+import Branding from "../components/Branding"
 
-const GameCanvas = styled.div`
+const GameCanvas = styled.section`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
 `
+const Aside = styled.aside`
+  grid-column: span 3;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* margin-bottom: 2rem; */
+`
+const GameSection = styled.section`
+  grid-column: span 9;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* margin-bottom: 2rem; */
+`
+
+const HomePageWrapper = styled.main`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+`
 
 function HomePage() {
   return (
-    <div className="container">
-      <h1 className="branding">
-        <span>Tic</span>-<span>Tac</span>-<span>Toe</span>
-      </h1>
-      <ModeSelector />
-      <div>
-        <SocreBoard />
-        <PlayerTurn />
-      </div>
+    <>
+      <Branding />
 
-      <GameCanvas>
-        <GameBoard />
+      <HomePageWrapper className="container">
+        <Aside>
+          <ModeSelector />
+          <HistoryList />
+        </Aside>
 
-        <WinnerModal />
-      </GameCanvas>
+        <GameSection>
+          <SocreBoard />
+          <PlayerTurn />
 
-      <RestartButton />
-    </div>
+          <GameCanvas>
+            <GameBoard />
+
+            <WinnerModal />
+          </GameCanvas>
+
+          <RestartButton />
+        </GameSection>
+      </HomePageWrapper>
+    </>
   )
 }
 

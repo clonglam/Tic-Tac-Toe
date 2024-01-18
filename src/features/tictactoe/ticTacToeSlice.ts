@@ -18,7 +18,7 @@ export enum GameMode {
   PVP = "3",
 }
 
-type Cell = Marks | null
+export type Cell = Marks | null
 
 export type Marks = "X" | "O"
 
@@ -45,7 +45,7 @@ export type GameResult =
   | "TIE"
   | null
 
-interface GameState {
+export interface GameState {
   board: Cell[]
   currentRound: Marks
   players: PlayerState

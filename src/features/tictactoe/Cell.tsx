@@ -1,13 +1,10 @@
-import { useDispatch } from "react-redux"
 import styled from "styled-components"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import Circle from "./Circle"
 import Cross from "./Cross"
 import {
   Marks,
   PlayerType,
-  checkWinner,
-  nextPlayer,
   placeMark,
   slectCurrentPlayer,
 } from "./ticTacToeSlice"
@@ -28,17 +25,14 @@ const StyledCell = styled.td`
   padding: 0.3em 0.3em;
 `
 function Cell({ cellIndex, value }: CellProps) {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const currentPlayer = useAppSelector(slectCurrentPlayer)
 
   const onClickHandler = (index: number) => {
     if (value !== null || currentPlayer.playerType === PlayerType["AI"]) {
       return
     }
-
     dispatch(placeMark(index))
-    dispatch(checkWinner())
-    dispatch(nextPlayer())
   }
   return (
     <StyledCell onClick={() => onClickHandler(cellIndex)}>

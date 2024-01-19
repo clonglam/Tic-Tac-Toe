@@ -18,15 +18,9 @@ const GameCanvas = styled.section`
 `
 const Aside = styled.aside`
   grid-column: span 3;
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* margin-bottom: 2rem; */
 `
 const GameSection = styled.section`
   grid-column: span 9;
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* margin-bottom: 2rem; */
 `
 
 const HomePageWrapper = styled.main`

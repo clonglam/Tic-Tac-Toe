@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit"
 import _ from "lodash"
 
 import type { PayloadAction } from "@reduxjs/toolkit"
-import type { RootState } from "../../app/store"
+import type { AppThunk, RootState } from "../../app/store"
+import { updateHistory } from "../history/historySlice"
 
 export type LineType = "horizontal" | "vertical" | "diagonal"
 
@@ -113,11 +115,14 @@ export const ticTacToeSlice = createSlice({
         }
       })
     },
-    placeMark: (state, { payload }: PayloadAction<number>) => {
-      if (state.board[payload] !== null) return
+    editBoard: (
+      state,
+      { payload }: PayloadAction<{ player: Marks; cellIndex: number }>
+    ) => {
+      if (state.board[payload.cellIndex] !== null) return
 
       state.board = state.board.map((cell, index) =>
-        index === payload ? state.currentRound : cell
+        index === payload.cellIndex ? payload.player : cell
       )
     },
     nextPlayer: (state) => {
@@ -140,14 +145,22 @@ export const ticTacToeSlice = createSlice({
           move = pickRandomEmptySpace(state.board)!
           break
         case GameMode["MEDIUM"]:
-          move = pickRandomEmptySpace(state.board)!
+          move = calcAIMove(
+            state.board,
+            state.humanMark === "X" ? "O" : "X",
+            2
+          )!
           break
         case GameMode["IMPOSSIBLE"]:
           if (state.board.every((cell) => cell === null)) {
             move = 0
             break
           }
-          move = findBestMove(state.board, state.humanMark === "X" ? "O" : "X")!
+          move = calcAIMove(
+            state.board,
+            state.humanMark === "X" ? "O" : "X",
+            null
+          )!
           break
       }
 
@@ -155,17 +168,26 @@ export const ticTacToeSlice = createSlice({
         index === move ? state.currentRound : cell
       )
     },
+    rollbackGameBoard: (
+      state,
+      { payload }: PayloadAction<{ board: Cell[]; currentRound: Marks }>
+    ) => {
+      state.board = payload.board
+
+      state.currentRound = payload.currentRound
+    },
   },
 })
 
 export const {
-  placeMark,
+  editBoard,
   nextPlayer,
   checkWinner,
   newGame,
   switchMark,
-  setGameMode,
   aiMove,
+  setGameMode,
+  rollbackGameBoard,
 } = ticTacToeSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
@@ -178,6 +200,31 @@ export const selectBoard = (state: RootState) => state.ticTacToe.board
 export const selectHumanMark = (state: RootState) => state.ticTacToe.humanMark
 export const selectCurrentRound = (state: RootState) =>
   state.ticTacToe.currentRound
+
+export const placeMark =
+  (cellIndex: number): AppThunk =>
+  (dispatch, getState) => {
+    const gameState = getState().ticTacToe
+
+    dispatch(editBoard({ cellIndex, player: gameState.currentRound }))
+    dispatch(checkWinner())
+    dispatch(nextPlayer())
+
+    const newGameState = getState().ticTacToe
+
+    dispatch(
+      updateHistory({
+        currentRound: newGameState.currentRound,
+        board: newGameState.board,
+      })
+    )
+  }
+
+export const placeMarkAI = (): AppThunk => (dispatch, _) => {
+  dispatch(aiMove())
+  dispatch(checkWinner())
+  dispatch(nextPlayer())
+}
 
 const winCombination = [
   [0, 1, 2],
@@ -240,7 +287,8 @@ function minimax(
   board: Cell[],
   depth: number,
   isMaximizingPlayer: boolean,
-  aiPlayerMark: Marks
+  aiPlayerMark: Marks,
+  limit: number | null
 ) {
   const result = checkForWinner(board)
 
@@ -248,12 +296,15 @@ function minimax(
     return result === "TIE" ? 0 : result.winner === aiPlayerMark ? 10 : -10
   }
 
+  // Depth limit condition
+  if (limit !== null && depth == limit) return 0
+
   if (isMaximizingPlayer) {
     let bestScore = -Infinity
     for (let i = 0; i < board.length; i++) {
       if (board[i] === null) {
         board[i] = aiPlayerMark // AI's move
-        const score = minimax(board, depth + 1, false, aiPlayerMark)
+        const score = minimax(board, depth + 1, false, aiPlayerMark, limit)
         board[i] = null
         bestScore = Math.max(score, bestScore)
       }
@@ -264,7 +315,7 @@ function minimax(
     for (let i = 0; i < board.length; i++) {
       if (board[i] === null) {
         board[i] = aiPlayerMark === "X" ? "O" : "X" // Human's move
-        const score = minimax(board, depth + 1, true, aiPlayerMark)
+        const score = minimax(board, depth + 1, true, aiPlayerMark, limit)
         board[i] = null
         bestScore = Math.min(score, bestScore)
       }
@@ -273,13 +324,13 @@ function minimax(
   }
 }
 
-function findBestMove(board: Cell[], aiPlayerMark: Marks) {
+function calcAIMove(board: Cell[], aiPlayerMark: Marks, limit: null | number) {
   let bestScore = -Infinity
   let move
   for (let i = 0; i < board.length; i++) {
     if (board[i] === null) {
       board[i] = aiPlayerMark // AI's move
-      const score = minimax(board, 0, false, aiPlayerMark)
+      const score = minimax(board, 0, false, aiPlayerMark, limit)
       board[i] = null // Reset it
       if (score > bestScore) {
         bestScore = score

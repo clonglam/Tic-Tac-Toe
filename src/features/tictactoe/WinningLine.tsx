@@ -7,11 +7,10 @@ type Props = {
 
 const Line = styled.div<Props>`
   position: absolute;
-  background-color: #213547; // Line color
+  background-color: #213547;
   transform-origin: left center;
   border-radius: 5px;
 
-  // Adjusting line style based on type and position
   ${({ lineType, linePosition }) => {
     switch (lineType) {
       case "horizontal":

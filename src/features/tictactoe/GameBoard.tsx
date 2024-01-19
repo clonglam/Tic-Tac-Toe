@@ -1,15 +1,12 @@
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
 import styled, { keyframes } from "styled-components"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import Cell from "./Cell"
 import WinningLine from "./WinningLine"
 import {
   GameMode,
   PlayerType,
-  aiMove,
-  checkWinner,
-  nextPlayer,
+  placeMarkAI,
   selectBoard,
   selectGameMode,
   selectResult,
@@ -45,11 +42,11 @@ const Row = styled.tr`
 `
 
 function GameBoard() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const board = useAppSelector(selectBoard)
   const result = useAppSelector(selectResult)
-
   const currentPlayer = useAppSelector(slectCurrentPlayer)
+
   const gameMode = useAppSelector(selectGameMode)
 
   useEffect(() => {
@@ -58,9 +55,7 @@ function GameBoard() {
       currentPlayer.playerType === PlayerType["AI"] &&
       result === null
     ) {
-      dispatch(aiMove())
-      dispatch(checkWinner())
-      dispatch(nextPlayer())
+      dispatch(placeMarkAI())
     }
   }, [currentPlayer.playerType, gameMode, dispatch, result])
 

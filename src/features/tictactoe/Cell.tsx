@@ -1,13 +1,8 @@
 import styled from "styled-components"
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { useAppDispatch } from "../../app/hooks"
 import Circle from "./Circle"
 import Cross from "./Cross"
-import {
-  Marks,
-  PlayerType,
-  placeMark,
-  slectCurrentPlayer,
-} from "./ticTacToeSlice"
+import { Marks, placeMark } from "./ticTacToeSlice"
 
 type CellProps = {
   cellIndex: number
@@ -26,10 +21,9 @@ const StyledCell = styled.td`
 `
 function Cell({ cellIndex, value }: CellProps) {
   const dispatch = useAppDispatch()
-  const currentPlayer = useAppSelector(slectCurrentPlayer)
 
   const onClickHandler = (index: number) => {
-    if (value !== null || currentPlayer.playerType === PlayerType["AI"]) {
+    if (value !== null) {
       return
     }
     dispatch(placeMark(index))

@@ -1,17 +1,8 @@
-import { useEffect } from "react"
 import styled, { keyframes } from "styled-components"
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { useAppSelector } from "../../app/hooks"
 import Cell from "./Cell"
 import WinningLine from "./WinningLine"
-import {
-  GameMode,
-  PlayerType,
-  placeMarkAI,
-  selectBoard,
-  selectGameMode,
-  selectResult,
-  slectCurrentPlayer,
-} from "./ticTacToeSlice"
+import { selectBoard, selectResult } from "./ticTacToeSlice"
 
 const clipMask = keyframes`
      from {
@@ -42,22 +33,8 @@ const Row = styled.tr`
 `
 
 function GameBoard() {
-  const dispatch = useAppDispatch()
   const board = useAppSelector(selectBoard)
   const result = useAppSelector(selectResult)
-  const currentPlayer = useAppSelector(slectCurrentPlayer)
-
-  const gameMode = useAppSelector(selectGameMode)
-
-  useEffect(() => {
-    if (
-      gameMode != GameMode["PVP"] &&
-      currentPlayer.playerType === PlayerType["AI"] &&
-      result === null
-    ) {
-      dispatch(placeMarkAI())
-    }
-  }, [currentPlayer.playerType, gameMode, dispatch, result])
 
   return (
     <Board>

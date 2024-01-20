@@ -12,11 +12,6 @@ const StyledNavbar = styled.div`
   background: var(--background-color);
 `
 
-const StyledNav = styled.nav`
-  & a :hover {
-    text-decoration: underline;
-  }
-`
 const Brading = styled.span`
   font-size: 22px;
   font-weight: 600;
@@ -30,12 +25,6 @@ const NavBar = () => {
           <span>Tic</span>-<span>Tac</span>-<span>Toe</span>
         </Brading>
       </Link>
-
-      <StyledNav>
-        <Link to="/about">
-          <span>About</span>
-        </Link>
-      </StyledNav>
     </StyledNavbar>
   )
 }

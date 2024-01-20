@@ -1,4 +1,26 @@
-# Tic Tac Toe - Arcade Project
+# Tic Tac Toe Part 1 UI/UX - Arcade Project
+
+![gameplay](https://hugo-coding-blog.s3.us-west-2.amazonaws.com/tic-tac-tpe-part-1/Tic-tac-toe-part-1-cover.jpg)
+
+## Introduction
+
+In part 1, we will focuse on creating a smooth and intutive UI/UX with React & Styled Componets,
+Game Logic with Redux, to create a maintainable and highly reuseable Player vs Player Tic Tac Toe.
+
+## Quickstart
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/clonglam/Tic-Tac-Toe.git
+cd tic-tac-toe
+
+# install the dependencies
+npm install
+
+# start the server
+npm run dev
+```
 
 ## Overview
 
@@ -9,31 +31,6 @@ This project is part of the [Arcade Projects series](https://hugo-coding.com/pro
 Try out the game: [Play Tic Tac Toe](https://arcade-tic-tac-toe.vercel.app/)
 
 ![screenshot](https://github.com/clonglam/Tic-Tac-Toe/blob/main/public/screenshot.png)
-
-## Algorithm
-
-The core of the Medium and Impossible game modes is the Minimax algorithm. This is a recursive algorithm used in decision-making and game theory to determine the optimal move for a player, assuming the opponent also plays optimally.
-
-### Minimax Algorithm
-
-- **Functionality**: At each step, the algorithm simulates all possible moves, evaluates the resulting board state, and selects the move that maximizes the AI's chances of winning.
-- **Optimizations**: To enhance performance, the algorithm implements several optimizations, especially in the Impossible mode.
-- **Space Complexity in Impossible Mode**: O(n!), which translates to 9! (362880) computations if the AI plays as "X". To address potential performance concerns:
-  - The AI's first move is pre-determined to the corner square, reducing complexity to 8! (40320) and improving response time.
-
-## Game Modes
-
-### Easy Mode
-
-- **AI Behavior**: The AI randomly places its mark in any available space.
-- **Suitable For**: Beginners or those looking for casual gameplay.
-
-### Medium & Impossible Modes
-
-- **Algorithm**: Utilizes the Minimax algorithm with recursion.
-- **Depth of Search**:
-  - **Medium Mode**: Searches 2 levels deep.
-  - **Impossible Mode**: Examines all possible game outcomes.
 
 ## Technologies Used
 

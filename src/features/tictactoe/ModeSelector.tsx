@@ -3,7 +3,6 @@ import { GameMode, selectGameMode, setGameMode } from "./ticTacToeSlice"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 
 const Wrapper = styled.div`
-  padding: 0.5em 0;
   position: relative;
   display: flex;
   flex-direction: column;

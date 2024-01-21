@@ -3,9 +3,11 @@ import styled from "styled-components"
 import GameBoard from "../features/tictactoe/GameBoard"
 import PlayerTurn from "../features/tictactoe/PlayerTurn"
 import RestartButton from "../features/tictactoe/RestartButton"
+import SocreBoard from "../features/tictactoe/SocreBoard"
 import WinnerModal from "../features/tictactoe/WinnerModal"
-import Branding from "../components/Branding"
 import ModeSelector from "../features/tictactoe/ModeSelector"
+
+import Branding from "../components/Branding"
 
 const GameCanvas = styled.section`
   position: relative;
@@ -14,24 +16,37 @@ const GameCanvas = styled.section`
   justify-content: center;
   margin-bottom: 2rem;
 `
+const GameSection = styled.section`
+  grid-column: span 9;
+`
+
+const HomePageWrapper = styled.main`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+`
 
 function HomePage() {
   return (
     <>
       <Branding />
 
-      <section className="container">
-        <PlayerTurn />
+      <HomePageWrapper className="container">
         <ModeSelector />
 
-        <GameCanvas>
-          <GameBoard />
+        <GameSection>
+          <SocreBoard />
+          <PlayerTurn />
 
-          <WinnerModal />
-        </GameCanvas>
+          <GameCanvas>
+            <GameBoard />
 
-        <RestartButton />
-      </section>
+            <WinnerModal />
+          </GameCanvas>
+
+          <RestartButton />
+        </GameSection>
+      </HomePageWrapper>
     </>
   )
 }

@@ -5,6 +5,7 @@ import PlayerTurn from "../features/tictactoe/PlayerTurn"
 import RestartButton from "../features/tictactoe/RestartButton"
 import WinnerModal from "../features/tictactoe/WinnerModal"
 import Branding from "../components/Branding"
+import ModeSelector from "../features/tictactoe/ModeSelector"
 
 const GameCanvas = styled.section`
   position: relative;
@@ -21,6 +22,7 @@ function HomePage() {
 
       <section className="container">
         <PlayerTurn />
+        <ModeSelector />
 
         <GameCanvas>
           <GameBoard />
